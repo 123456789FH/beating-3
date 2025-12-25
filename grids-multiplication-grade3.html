@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>الشبكات وعملية الضرب (الصف الثالث)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap');
+    *{font-family:"Tajawal",system-ui,sans-serif}
+    .card{box-shadow:0 18px 60px rgba(15,23,42,.12)}
+    .btn{border-radius:18px;font-weight:800;padding:14px 18px}
+    .pill{border-radius:999px;padding:6px 12px;font-weight:800;font-size:13px}
+    .shake{animation:shake .35s ease-in-out}
+    @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(6px)}50%{transform:translateX(-6px)}75%{transform:translateX(4px)}}
+    .pop{animation:pop .35s ease-in-out}
+    @keyframes pop{0%{transform:scale(.98)}60%{transform:scale(1.04)}100%{transform:scale(1)}}
+
+    .gridWrap{display:grid;gap:10px;padding:18px;border-radius:24px;background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.75));border:2px solid rgba(236,72,153,.20);box-shadow:0 10px 30px rgba(0,0,0,.06)}
+    .dot{width:34px;height:34px;border-radius:999px;background:radial-gradient(circle at 30% 30%, rgba(253,230,138,1), rgba(245,158,11,1));border:2px solid rgba(0,0,0,.08);box-shadow:0 6px 14px rgba(0,0,0,.10)}
+    .miniDot{width:18px;height:18px;border-radius:999px;border:1.5px solid rgba(0,0,0,.10);background:radial-gradient(circle at 30% 30%, rgba(253,230,138,1), rgba(245,158,11,1))}
+    .miniGrid{display:grid;gap:6px;padding:12px;border-radius:18px;background:#fff;border:1.5px solid rgba(148,163,184,.35)}
+
+    .eqBox{min-width:74px;height:56px;display:flex;align-items:center;justify-content:center;border-width:4px;border-radius:18px;font-size:26px;font-weight:900;background:#fff}
+    .numInput{width:84px;height:56px;text-align:center;font-size:26px;font-weight:900;border-width:4px;border-radius:18px;outline:none;background:#fff}
+    .numInput:focus{box-shadow:0 0 0 6px rgba(236,72,153,.18)}
+    @media(max-width:640px){.dot{width:30px;height:30px}.gridWrap{gap:8px;padding:14px}.numInput{width:72px}.eqBox{min-width:66px}}
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-pink-50">
+  <div class="max-w-6xl mx-auto px-4 py-6">
+    <div class="bg-white/90 backdrop-blur rounded-3xl card p-6 border border-emerald-100">
+      <div class="text-center">
+        <div class="text-2xl md:text-3xl font-extrabold text-slate-800">الشَّبَكَاتُ وَعَمَلِيَّةُ الضَّرْب</div>
+        <div class="mt-3 grid md:grid-cols-2 gap-3 w-full max-w-4xl mx-auto">
+          <div class="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3">
+            <div class="font-extrabold text-emerald-800">فِكْرَةُ الدَّرْسِ</div>
+            <div class="text-slate-700 font-bold mt-1">أستعملُ الشبكاتِ لأجدَ ناتجَ الضرب.</div>
+          </div>
+          <div class="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3">
+            <div class="font-extrabold text-amber-800">المُفْرَدَات</div>
+            <div class="text-slate-700 font-bold mt-1">الشَّبَكَة • العَوَامِل • ناتِجُ الضَّرْب • خَاصِّيَّةُ الإِبْدَال</div>
+          </div>
+        </div>
+        <div class="mt-2 text-slate-600 leading-7">
+          الشبكة = صفوف متساوية وأعمدة متساوية. عدد الصفوف وعَدَد الأعمدة هما <b>عاملان</b>، وعدد العناصر كلها هو <b>ناتج الضرب</b>.
+        </div>
+      </div>
+
+      <div class="mt-6 flex flex-wrap gap-2 justify-center">
+        <button id="tab-learn" class="btn bg-pink-600 text-white">تعلم</button>
+        <button id="tab-examples" class="btn bg-white text-slate-700 border-2 border-pink-200">أمثلة</button>
+        <button id="tab-practice" class="btn bg-white text-slate-700 border-2 border-pink-200">تدرب</button>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <section id="section-learn" class="bg-white rounded-3xl card p-6 border border-emerald-100">
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="rounded-2xl p-4 bg-pink-50 border border-pink-100">
+            <div class="font-extrabold text-lg text-slate-800 mb-2">١) ما هي الشبكة؟</div>
+            <div class="text-slate-700 leading-7">الشبكة ترتيب عناصر في <b>صفوف</b> و<b>أعمدة</b> متساوية.</div>
+          </div>
+          <div class="rounded-2xl p-4 bg-purple-50 border border-purple-100">
+            <div class="font-extrabold text-lg text-slate-800 mb-2">٢) طريقتان لإيجاد الناتج</div>
+            <div class="text-slate-700 leading-7"><b>أجمع</b> صفًا صفًا، أو <b>أضرب</b> (صفوف × أعمدة).</div>
+          </div>
+          <div class="rounded-2xl p-4 bg-amber-50 border border-amber-100">
+            <div class="font-extrabold text-lg text-slate-800 mb-2">٣) خاصية الإبدال</div>
+            <div class="text-slate-700 leading-7">إذا بدّلنا العوامل لا يتغير الناتج: <span dir="ltr" class="font-extrabold text-amber-800">٣ × ٥ = ٥ × ٣</span></div>
+          </div>
+        </div>
+
+        <div class="mt-5 rounded-2xl p-4 border border-slate-200 bg-slate-50">
+          <div class="font-extrabold text-slate-800 mb-2">تلميح ✅</div>
+          <div class="text-slate-700 leading-7">الصفوف × الأعمدة = عدد العناصر الكلي (ناتج الضرب).</div>
+        </div>
+      </section>
+
+      <section id="section-examples" class="hidden bg-white rounded-3xl card p-6 border border-emerald-100">
+        <div class="flex items-center justify-between flex-wrap gap-2 mb-4">
+          <div class="font-extrabold text-xl text-slate-800">أمثلة محلولة بالشبكات</div>
+          <div class="text-sm text-slate-500">اضغطي على المثال لعرض الشرح</div>
+        </div>
+        <div id="examplesList" class="grid md:grid-cols-2 gap-4"></div>
+      </section>
+
+      <section id="section-practice" class="hidden bg-white rounded-3xl card p-6 border border-emerald-100">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <div class="font-extrabold text-xl text-slate-800">تدريب: اكتبي جملة الضرب من الشبكة</div>
+            <div class="text-slate-600">اكتبي: <b>الناتج = الصفوف × الأعمدة</b> (ويمكن تبديل العوامل).</div>
+          </div>
+          <div class="rounded-2xl bg-slate-50 border border-slate-200 px-4 py-3">
+            <div class="font-bold text-slate-700">النتيجة</div>
+            <div class="text-slate-700">⭐ <span id="score">٠</span> / <span id="total">٠</span></div>
+          </div>
+        </div>
+
+        <div class="mt-4 flex flex-wrap gap-3 items-center justify-center">
+          <label class="font-bold text-slate-700">الصفوف:</label>
+          <input id="rows" type="range" min="1" max="8" value="3" class="w-48"/>
+          <span id="rowsVal" class="pill bg-white border border-slate-200 text-slate-700">٣</span>
+
+          <label class="font-bold text-slate-700">الأعمدة:</label>
+          <input id="cols" type="range" min="1" max="8" value="5" class="w-48"/>
+          <span id="colsVal" class="pill bg-white border border-slate-200 text-slate-700">٥</span>
+
+          <button id="btnNew" class="btn bg-purple-600 text-white">عشوائي</button>
+          <button id="btnShow" class="btn bg-white border-2 border-purple-200 text-slate-700">أظهر الشرح</button>
+        </div>
+
+        <div class="mt-6 grid lg:grid-cols-2 gap-6 items-start">
+          <div class="rounded-3xl border border-pink-100 bg-gradient-to-b from-white to-pink-50 p-5">
+            <div class="flex items-center justify-between mb-3">
+              <div class="font-extrabold text-slate-800">الشبكة</div>
+              <div class="pill bg-white border border-pink-200 text-slate-700" id="badge">—</div>
+            </div>
+
+            <div class="flex justify-center">
+              <div id="grid" class="gridWrap"></div>
+            </div>
+
+            <div class="mt-5 rounded-2xl bg-white border border-slate-200 p-4">
+              <div class="font-extrabold text-slate-800 text-center mb-2">اكتبي جملة الضرب:</div>
+
+              <!-- RTL: الناتج يسار، العملية يمين -->
+              <div class="flex flex-wrap items-center justify-center gap-3" dir="rtl">
+                <input id="inP" class="numInput border-pink-500 text-slate-800" inputmode="numeric" maxlength="3" placeholder="؟" />
+                <div class="eqBox border-slate-200 text-slate-600" dir="ltr">=</div>
+                <input id="inR" class="numInput border-pink-500 text-slate-800" inputmode="numeric" maxlength="2" placeholder="؟" />
+                <div class="eqBox border-slate-200 text-slate-600" dir="ltr">×</div>
+                <input id="inC" class="numInput border-pink-500 text-slate-800" inputmode="numeric" maxlength="2" placeholder="؟" />
+              </div>
+
+              <div class="mt-3 text-center text-sm text-slate-500">
+                اكتبيها: <span dir="ltr" class="font-extrabold text-purple-700">الناتج = الصفوف × الأعمدة</span>
+              </div>
+
+              <div class="mt-4 flex gap-3 justify-center">
+                <button id="btnCheck" class="btn bg-emerald-600 text-white w-44">تحقق ✅</button>
+                <button id="btnHint" class="btn bg-white border-2 border-purple-200 text-slate-700 w-44">تلميح 💡</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white p-5">
+            <div class="font-extrabold text-slate-800 mb-2">التغذية الراجعة والشرح</div>
+            <div id="feedback" class="text-slate-700 leading-7">اكتبي الناتج والصفوف والأعمدة ثم اضغطي <b>تحقق</b>.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="mt-8 text-center text-slate-600">
+      <div class="bg-white/80 inline-block px-4 py-3 rounded-2xl border border-slate-200">
+        <span class="font-bold">أ/ فاطمة هزازي</span> • ملتقى معلمي ومعلمات الرياضيات • الملتقى التفاعلي
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ar=['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+    const toArabic=(n)=>String(Math.trunc(n)).split('').map(ch=>{if(ch==='-')return '−';const d=ch.charCodeAt(0)-48;return (d>=0&&d<=9)?ar[d]:ch;}).join('');
+    const normDigits=(str)=>{if(str==null)return "";const map={'٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9','۰':'0','۱':'1','۲':'2','۳':'3','۴':'4','۵':'5','۶':'6','۷':'7','۸':'8','۹':'9'};return String(str).trim().split('').map(ch=>map[ch]??ch).join('');};
+    const randInt=(min,max)=>Math.floor(Math.random()*(max-min+1))+min;
+
+    const tabs=[{btn:'tab-learn',sec:'section-learn'},{btn:'tab-examples',sec:'section-examples'},{btn:'tab-practice',sec:'section-practice'}];
+    function setTab(activeBtnId){
+      tabs.forEach(t=>{
+        const b=document.getElementById(t.btn), s=document.getElementById(t.sec);
+        const active=t.btn===activeBtnId;
+        s.classList.toggle('hidden',!active);
+        b.className=active?'btn bg-pink-600 text-white':'btn bg-white text-slate-700 border-2 border-pink-200';
+      });
+    }
+    document.getElementById('tab-learn').onclick=()=>setTab('tab-learn');
+    document.getElementById('tab-examples').onclick=()=>setTab('tab-examples');
+    document.getElementById('tab-practice').onclick=()=>setTab('tab-practice');
+
+    const examples=[{r:3,c:5},{r:2,c:4},{r:4,c:3},{r:5,c:1}];
+    function miniGrid(r,c){
+      const style=`grid-template-columns: repeat(${c}, 18px);`;
+      let dots=''; for(let i=0;i<r*c;i++) dots+=`<div class="miniDot"></div>`;
+      return `<div class="miniGrid" style="${style}">${dots}</div>`;
+    }
+    function exCard(r,c,idx){
+      const p=r*c;
+      const add=Array.from({length:r},()=>toArabic(c)).join(' + ');
+      return `
+        <div class="rounded-3xl border border-slate-200 bg-slate-50 p-5 cursor-pointer hover:shadow-lg transition" data-idx="${idx}">
+          <div class="font-extrabold text-slate-800 mb-2">مثال ${toArabic(idx+1)}</div>
+          <div class="text-slate-700">شبكة فيها ${toArabic(r)} صفوف و${toArabic(c)} أعمدة.</div>
+          <div class="mt-3 flex justify-center">${miniGrid(r,c)}</div>
+
+          <div id="ex-body-${idx}" class="hidden mt-4 rounded-2xl bg-white border border-slate-200 p-4 text-slate-700 leading-7">
+            <div class="font-extrabold text-slate-800 mb-2">الطريقة (١): أجمع</div>
+            <div dir="ltr" class="font-bold">${add} = ${toArabic(p)}</div>
+            <div class="mt-3 font-extrabold text-slate-800 mb-2">الطريقة (٢): أضرب</div>
+            <div dir="ltr" class="font-extrabold text-purple-700">${toArabic(r)} × ${toArabic(c)} = ${toArabic(p)}</div>
+            <div class="mt-3 font-extrabold text-slate-800 mb-1">خاصية الإبدال</div>
+            <div dir="ltr" class="font-bold text-amber-800">${toArabic(c)} × ${toArabic(r)} = ${toArabic(p)}</div>
+          </div>
+          <div class="mt-3 text-sm text-pink-600 font-bold">اضغطي لعرض/إخفاء الحل</div>
+        </div>`;
+    }
+    function renderExamples(){
+      const container=document.getElementById('examplesList');
+      container.innerHTML=examples.map((x,i)=>exCard(x.r,x.c,i)).join('');
+      container.querySelectorAll('[data-idx]').forEach(el=>{
+        el.addEventListener('click',()=>{
+          const idx=el.getAttribute('data-idx');
+          document.getElementById(`ex-body-${idx}`).classList.toggle('hidden');
+        });
+      });
+    }
+    renderExamples();
+
+    let state={r:3,c:5,score:0,total:0,locked:false};
+    const scoreEl=document.getElementById('score');
+    const totalEl=document.getElementById('total');
+    const feedbackEl=document.getElementById('feedback');
+
+    function animateFeedback(kind){
+      feedbackEl.classList.remove('shake','pop'); void feedbackEl.offsetWidth;
+      feedbackEl.classList.add(kind==='good'?'pop':'shake');
+    }
+    function setFeedback(html,kind){feedbackEl.innerHTML=html; animateFeedback(kind);}
+
+    function drawGrid(r,c){
+      const grid=document.getElementById('grid');
+      grid.style.gridTemplateColumns=`repeat(${c}, 34px)`;
+      grid.innerHTML='';
+      for(let i=0;i<r*c;i++){const d=document.createElement('div'); d.className='dot'; grid.appendChild(d);}
+      document.getElementById('badge').textContent=`${toArabic(r)} صفوف • ${toArabic(c)} أعمدة`;
+    }
+    function clearInputs(){['inP','inR','inC'].forEach(id=>document.getElementById(id).value='');}
+    function renderPractice(){
+      drawGrid(state.r,state.c);
+      document.getElementById('rowsVal').textContent=toArabic(state.r);
+      document.getElementById('colsVal').textContent=toArabic(state.c);
+      setFeedback('اكتبي: <b>الناتج = الصفوف × الأعمدة</b> (يمكن أيضًا تبديل العوامل).','good');
+      clearInputs(); state.locked=false;
+    }
+    function readNumber(id){
+      const raw=normDigits(document.getElementById(id).value).replace(/\D/g,'');
+      return raw===''?null:parseInt(raw,10);
+    }
+    function check(){
+      if(state.locked) return;
+      const pIn=readNumber('inP'), rIn=readNumber('inR'), cIn=readNumber('inC');
+      if(pIn===null||rIn===null||cIn===null){setFeedback('⚠️ اكتبي الأعداد الثلاثة (الناتج، الصفوف، الأعمدة).','bad');return;}
+      const r=state.r,c=state.c,p=r*c;
+      state.total+=1;
+      const okFactors=((rIn===r&&cIn===c)||(rIn===c&&cIn===r));
+      const correct=okFactors&&(pIn===p);
+      if(correct) state.score+=1;
+      scoreEl.textContent=toArabic(state.score);
+      totalEl.textContent=toArabic(state.total);
+      state.locked=true;
+      if(correct){
+        setFeedback(`<div class="font-extrabold text-emerald-700 text-lg">أحسنتِ! ✅</div>
+        <div class="mt-2"><b>الناتج:</b> ${toArabic(p)}</div>
+        <div class="mt-2"><b>جملة الضرب:</b> <span dir="ltr" class="font-extrabold text-purple-700">${toArabic(r)} × ${toArabic(c)} = ${toArabic(p)}</span></div>
+        <div class="mt-2"><b>الإبدال:</b> <span dir="ltr" class="font-bold text-amber-800">${toArabic(c)} × ${toArabic(r)} = ${toArabic(p)}</span></div>`,'good');
+      } else {
+        setFeedback(`<div class="font-extrabold text-rose-700 text-lg">حاولي مرة أخرى 💡</div>
+        <div class="mt-2"><b>الصحيح:</b> <span dir="ltr" class="font-extrabold text-purple-700">${toArabic(r)} × ${toArabic(c)} = ${toArabic(p)}</span></div>
+        <div class="mt-2">تذكري: الصفوف × الأعمدة = عدد العناصر الكلي.</div>`,'bad');
+      }
+    }
+    function hint(){
+      const r=state.r,c=state.c;
+      setFeedback(`<div class="font-extrabold text-slate-800">تلميح 💡</div>
+      <div class="mt-1">عددي <b>الصفوف</b> = <b>${toArabic(r)}</b></div>
+      <div>عددي <b>الأعمدة</b> = <b>${toArabic(c)}</b></div>
+      <div class="mt-2">ثم: <span dir="ltr" class="font-extrabold text-purple-700">${toArabic(r)} × ${toArabic(c)}</span></div>`,'good');
+    }
+    function showExplain(){
+      const r=state.r,c=state.c,p=r*c;
+      const add=Array.from({length:r},()=>toArabic(c)).join(' + ');
+      setFeedback(`<div class="font-extrabold text-slate-800 mb-2">الشرح ✅</div>
+      <div><b>الطريقة (١): أجمع</b></div>
+      <div dir="ltr" class="font-bold">${add} = ${toArabic(p)}</div>
+      <div class="mt-3"><b>الطريقة (٢): أضرب</b></div>
+      <div dir="ltr" class="font-extrabold text-purple-700">${toArabic(r)} × ${toArabic(c)} = ${toArabic(p)}</div>
+      <div class="mt-3"><b>خاصية الإبدال</b></div>
+      <div dir="ltr" class="font-bold text-amber-800">${toArabic(c)} × ${toArabic(r)} = ${toArabic(p)}</div>`,'good');
+    }
+
+    const rowsSlider=document.getElementById('rows');
+    const colsSlider=document.getElementById('cols');
+    rowsSlider.addEventListener('input',()=>{state.r=parseInt(rowsSlider.value,10);renderPractice();});
+    colsSlider.addEventListener('input',()=>{state.c=parseInt(colsSlider.value,10);renderPractice();});
+    document.getElementById('btnNew').onclick=()=>{
+      state.r=randInt(1,8); state.c=randInt(1,8);
+      rowsSlider.value=state.r; colsSlider.value=state.c;
+      renderPractice();
+    };
+    document.getElementById('btnCheck').onclick=check;
+    document.getElementById('btnHint').onclick=hint;
+    document.getElementById('btnShow').onclick=showExplain;
+
+    ['inP','inR','inC'].forEach(id=>{
+      const el=document.getElementById(id);
+      el.addEventListener('input',()=>{
+        const raw=normDigits(el.value).replace(/\D/g,'');
+        const maxLen=(id==='inP')?3:2;
+        el.value=raw.slice(0,maxLen);
+      });
+      el.addEventListener('keydown',(e)=>{if(e.key==='Enter') check();});
+    });
+
+    scoreEl.textContent=toArabic(0);
+    totalEl.textContent=toArabic(0);
+    renderPractice();
+    setTab('tab-learn');
+  </script>
+</body>
+</html>
